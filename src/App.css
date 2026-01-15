@@ -1,0 +1,310 @@
+/**
+ * Global Styles for Temperature Monitor App
+ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  padding: 20px;
+}
+
+.app {
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* Temperature Container */
+.temperature-container {
+  background: white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.3);
+  padding: 32px;
+  animation: slideUp 0.5s ease-out;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Header */
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 32px;
+  flex-wrap: wrap;
+  gap: 16px;
+}
+
+.header h1 {
+  font-size: 2rem;
+  color: #2d3748;
+  font-weight: 700;
+}
+
+/* Status Indicator */
+.status-indicator {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 8px 16px;
+  border-radius: 20px;
+  font-size: 0.875rem;
+  font-weight: 600;
+  transition: all 0.3s ease;
+}
+
+.status-indicator.connected {
+  background: #d4edda;
+  color: #155724;
+}
+
+.status-indicator.disconnected {
+  background: #f8d7da;
+  color: #721c24;
+}
+
+.status-dot {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  animation: pulse 2s infinite;
+}
+
+.status-indicator.connected .status-dot {
+  background: #28a745;
+}
+
+.status-indicator.disconnected .status-dot {
+  background: #dc3545;
+}
+
+@keyframes pulse {
+  0%, 100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.5;
+  }
+}
+
+/* Loading State */
+.loading {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+.spinner {
+  width: 50px;
+  height: 50px;
+  margin: 0 auto 20px;
+  border: 4px solid #e2e8f0;
+  border-top-color: #667eea;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* No Data State */
+.no-data {
+  text-align: center;
+  padding: 60px 20px;
+  color: #718096;
+}
+
+.no-data p {
+  font-size: 1.25rem;
+  margin-bottom: 8px;
+}
+
+.no-data .hint {
+  font-size: 0.875rem;
+  color: #a0aec0;
+}
+
+/* Table Wrapper */
+.table-wrapper {
+  overflow-x: auto;
+  margin-bottom: 24px;
+}
+
+/* Temperature Table */
+.temperature-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+}
+
+.temperature-table thead {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.temperature-table th {
+  padding: 16px;
+  text-align: left;
+  font-weight: 600;
+  font-size: 0.875rem;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.temperature-table th:first-child {
+  border-top-left-radius: 8px;
+  text-align: center;
+  width: 60px;
+}
+
+.temperature-table th:last-child {
+  border-top-right-radius: 8px;
+}
+
+.temperature-table tbody tr {
+  border-bottom: 1px solid #e2e8f0;
+  transition: background-color 0.2s ease;
+}
+
+.temperature-table tbody tr:last-child {
+  border-bottom: none;
+}
+
+.temperature-table tbody tr:hover {
+  background-color: #f7fafc;
+}
+
+.temperature-table td {
+  padding: 16px;
+  color: #2d3748;
+}
+
+.temperature-table td:first-child {
+  text-align: center;
+  font-weight: 600;
+  color: #718096;
+}
+
+.temperature-table .original-value {
+  font-weight: 600;
+  color: #4a5568;
+  font-size: 1rem;
+}
+
+.temperature-table .celsius {
+  color: #3182ce;
+  font-weight: 600;
+}
+
+.temperature-table .fahrenheit {
+  color: #e53e3e;
+  font-weight: 600;
+}
+
+/* Fade-in animation for rows */
+.fade-in {
+  animation: fadeIn 0.5s ease-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateX(-10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+/* Footer */
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 20px;
+  border-top: 2px solid #e2e8f0;
+  color: #718096;
+  font-size: 0.875rem;
+  flex-wrap: wrap;
+  gap: 12px;
+}
+
+.footer strong {
+  color: #667eea;
+  font-weight: 700;
+}
+
+.update-hint {
+  color: #a0aec0;
+  font-style: italic;
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+  .temperature-container {
+    padding: 20px;
+  }
+
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header h1 {
+    font-size: 1.5rem;
+  }
+
+  .temperature-table th,
+  .temperature-table td {
+    padding: 12px 8px;
+    font-size: 0.875rem;
+  }
+
+  .footer {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}
+
+@media (max-width: 480px) {
+  body {
+    padding: 10px;
+  }
+
+  .temperature-container {
+    padding: 16px;
+  }
+
+  .header h1 {
+    font-size: 1.25rem;
+  }
+
+  .temperature-table th,
+  .temperature-table td {
+    padding: 10px 6px;
+    font-size: 0.8125rem;
+  }
+}
