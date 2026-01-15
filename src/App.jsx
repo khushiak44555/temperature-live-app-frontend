@@ -15,14 +15,22 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Get backend URL - matches socket configuration
-  const isLocalhost = window.location.hostname === 'localhost' || 
-                      window.location.hostname === '127.0.0.1' ||
-                      window.location.hostname === '';
-  
-  const backendUrl = import.meta.env.VITE_BACKEND_URL || 
-    (isLocalhost 
+  const getBackendUrl = () => {
+    if (import.meta.env.VITE_BACKEND_URL) {
+      return import.meta.env.VITE_BACKEND_URL;
+    }
+    
+    const hostname = window.location.hostname;
+    const isLocalhost = hostname === 'localhost' || 
+                        hostname === '127.0.0.1' ||
+                        hostname === '';
+    
+    return isLocalhost 
       ? 'http://localhost:3001'
-      : 'https://temperature-live-app-backend.onrender.com');
+      : 'https://temperature-live-app-backend.onrender.com';
+  };
+  
+  const backendUrl = getBackendUrl();
 
   useEffect(() => {
     // Connection status handlers
