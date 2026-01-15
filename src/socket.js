@@ -5,25 +5,30 @@
 
 import { io } from 'socket.io-client';
 
+// Backend URL - production by default, localhost for local dev
+const PRODUCTION_BACKEND = 'https://temperature-live-app-backend.onrender.com';
+const LOCAL_BACKEND = 'http://localhost:3001';
+
 // Function to get backend URL at runtime
 function getBackendUrl() {
-  // Check for environment variable first
+  // 1. Check for explicit environment variable
   if (import.meta.env.VITE_BACKEND_URL) {
+    console.log('🔗 Using VITE_BACKEND_URL:', import.meta.env.VITE_BACKEND_URL);
     return import.meta.env.VITE_BACKEND_URL;
   }
   
-  // Detect environment based on hostname
-  const hostname = typeof window !== 'undefined' ? window.location.hostname : '';
-  const isLocalhost = hostname === 'localhost' || 
-                      hostname === '127.0.0.1' ||
-                      hostname === '';
+  // 2. Check if running on localhost
+  const hostname = window.location.hostname;
+  console.log('🌍 Detected hostname:', hostname);
   
-  const url = isLocalhost 
-    ? 'http://localhost:3001'
-    : 'https://temperature-live-app-backend.onrender.com';
+  if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '') {
+    console.log('🏠 Running locally, using:', LOCAL_BACKEND);
+    return LOCAL_BACKEND;
+  }
   
-  console.log('🔗 Connecting to backend:', url, '(hostname:', hostname + ')');
-  return url;
+  // 3. Default to production
+  console.log('☁️ Running in production, using:', PRODUCTION_BACKEND);
+  return PRODUCTION_BACKEND;
 }
 
 const SOCKET_URL = getBackendUrl();

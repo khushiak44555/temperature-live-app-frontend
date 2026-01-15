@@ -14,20 +14,21 @@ function App() {
   const [isConnected, setIsConnected] = useState(false);
   const [isLoading, setIsLoading] = useState(true);
 
-  // Get backend URL - matches socket configuration
+  // Get backend URL - same logic as socket.js
   const getBackendUrl = () => {
+    const PRODUCTION_BACKEND = 'https://temperature-live-app-backend.onrender.com';
+    const LOCAL_BACKEND = 'http://localhost:3001';
+    
     if (import.meta.env.VITE_BACKEND_URL) {
       return import.meta.env.VITE_BACKEND_URL;
     }
     
     const hostname = window.location.hostname;
-    const isLocalhost = hostname === 'localhost' || 
-                        hostname === '127.0.0.1' ||
-                        hostname === '';
+    if (hostname === 'localhost' || hostname === '127.0.0.1' || hostname === '') {
+      return LOCAL_BACKEND;
+    }
     
-    return isLocalhost 
-      ? 'http://localhost:3001'
-      : 'https://temperature-live-app-backend.onrender.com';
+    return PRODUCTION_BACKEND;
   };
   
   const backendUrl = getBackendUrl();
