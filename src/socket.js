@@ -5,8 +5,11 @@
 
 import { io } from 'socket.io-client';
 
-// Backend server URL
-const SOCKET_URL = 'http://localhost:3001';
+// Backend server URL - automatically detects environment
+const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || 
+  (import.meta.env.PROD 
+    ? 'https://temperature-live-app-backend.onrender.com' 
+    : 'http://localhost:3001');
 
 // Create and export socket instance
 export const socket = io(SOCKET_URL, {
