@@ -6,10 +6,17 @@
 import { io } from 'socket.io-client';
 
 // Backend server URL - automatically detects environment
+// Uses production URL if not on localhost
+const isLocalhost = window.location.hostname === 'localhost' || 
+                    window.location.hostname === '127.0.0.1' ||
+                    window.location.hostname === '';
+
 const SOCKET_URL = import.meta.env.VITE_BACKEND_URL || 
-  (import.meta.env.PROD 
-    ? 'https://temperature-live-app-backend.onrender.com' 
-    : 'http://localhost:3001');
+  (isLocalhost 
+    ? 'http://localhost:3001'
+    : 'https://temperature-live-app-backend.onrender.com');
+
+console.log('🔗 Connecting to backend:', SOCKET_URL);
 
 // Create and export socket instance
 export const socket = io(SOCKET_URL, {

@@ -15,10 +15,14 @@ function App() {
   const [isLoading, setIsLoading] = useState(true);
 
   // Get backend URL - matches socket configuration
+  const isLocalhost = window.location.hostname === 'localhost' || 
+                      window.location.hostname === '127.0.0.1' ||
+                      window.location.hostname === '';
+  
   const backendUrl = import.meta.env.VITE_BACKEND_URL || 
-    (import.meta.env.PROD 
-      ? 'https://temperature-live-app-backend.onrender.com' 
-      : 'http://localhost:3001');
+    (isLocalhost 
+      ? 'http://localhost:3001'
+      : 'https://temperature-live-app-backend.onrender.com');
 
   useEffect(() => {
     // Connection status handlers
